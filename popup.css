@@ -1,0 +1,143 @@
+:root {
+    --bg: #0a0a0a;
+    --panel: #161616;
+    --accent: #00ff88;
+    --danger: #ff4b4b;
+    --text: #e0e0e0;
+    --text-dim: #909090;
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    width: 350px;
+    background: var(---bg);
+    color: var(---text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 16px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(---border);
+    padding-bottom: 12px;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+    background: linear-gradient(90deg, var(---accent), #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.danger-btn {
+    background: transparent;
+    color: var(---danger);
+    border: 1px solid rgba(255, 75, 75, 0.3);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.danger-btn:hover {
+    background: rgba(255, 75, 75, 0.1);
+    border-color: var(---danger);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(---text-dim);
+    padding: 40px 0;
+    font-style: italic;
+}
+
+.site-section {
+    background: var(---panel);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid var(---border);
+    overflow: hidden;
+}
+
+.site-header {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(---border);
+}
+
+.hostname {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(---accent);
+}
+
+.delete-site {
+    background: transparent;
+    border: none;
+    color: var(---text-dim);
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.delete-site:hover {
+    color: var(---danger);
+}
+
+.log-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.log-item {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(---border);
+    position: relative;
+}
+
+.log-item:last-child {
+    border-bottom: none;
+}
+
+.log-text {
+    flex: 1;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+.log-time {
+    font-size: 11px;
+    color: var(---text-dim);
+    white-space: nowrap;
+}
+
+.delete-log {
+    background: transparent;
+    border: none;
+    color: var(---text-dim);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.delete-log:hover {
+    color: var(---danger);
+}

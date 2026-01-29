@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: #111111;
+      --accent: #00ff88;
+      --accent-glow: rgba(0, 255, 136, 0.4);
+      --danger: #ff4b4b;
+      --text: #ffffff;
+      --text-dim: #a0a0a0;
+      --border: rgba(255, 255, 255, 0.05);
+      --glass: rgba(255, 255, 255, 0.03);
+    }
+
+    body {
+      width: 380px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      min-height: 200px;
+    }
+
+    .container {
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .danger-btn {
+      background: rgba(255, 75, 75, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(255, 75, 75, 0.2);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .danger-btn:hover {
+      background: var(--danger);
+      color: white;
+      box-shadow: 0 0 15px rgba(255, 75, 75, 0.3);
+    }
+
+    main {
+      padding: 16px;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--text-dim);
+      padding: 60px 20px;
+      font-style: italic;
+      font-size: 14px;
+    }
+
+    .site-section {
+      background: var(--panel);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .site-header {
+      padding: 12px 16px;
+      background: var(--glass);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hostname {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .delete-site {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 11px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .delete-site:hover {
+      color: var(--danger);
+    }
+
+    .log-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .log-item {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .log-item:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .log-item:last-child {
+      border-bottom: none;
+    }
+
+    .log-text {
+      flex: 1;
+      font-size: 14px;
+      word-break: break-all;
+      color: #eee;
+    }
+
+    .log-time {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .delete-log {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .delete-log:hover {
+      color: var(--danger);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Event Monitor</h1>
+      <button id="clear-all" class="danger-btn">Clear All</button>
+    </header>
+
+    <main>
+      <!-- Configuration Section -->
+      <section class="site-section config-section">
+        <div class="site-header">
+          <span class="hostname">Settings</span>
+        </div>
+        <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+          <div class="input-group">
+            <label
+              style="display: block; font-size: 11px; color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Trigger
+              Search Pattern</label>
+            <input type="text" id="pattern-input"
+              style="width: 100%; background: #222; border: 1px solid var(--border); color: white; padding: 8px; border-radius: 4px; font-size: 13px; box-sizing: border-box;"
+              placeholder="e.g. On event triggered ----">
+          </div>
+          <div class="input-group">
+            <label
+              style="display: block; font-size: 11px; color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Extraction
+              Delimiter</label>
+            <input type="text" id="delimiter-input"
+              style="width: 100%; background: #222; border: 1px solid var(--border); color: white; padding: 8px; border-radius: 4px; font-size: 13px; box-sizing: border-box;"
+              placeholder="e.g. ---- (leave empty to show rest of log)">
+          </div>
+          <button id="save-settings" class="danger-btn"
+            style="color: var(--accent); border-color: rgba(0, 255, 136, 0.3); background: rgba(0, 255, 136, 0.05);">Save
+            Configuration</button>
+        </div>
+      </section>
+
+      <div id="history-list">
+        <div class="empty-state">Loading history...</div>
+      </div>
+    </main>
+  </div>
+  <script src="popup.js"></script>
+</body>
+
+</html>
