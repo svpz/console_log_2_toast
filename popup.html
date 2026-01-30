@@ -185,6 +185,39 @@
     </header>
 
     <main>
+      <!-- Session Management Section -->
+      <section class="site-section session-section">
+        <div class="site-header">
+          <span class="hostname">Session Manager</span>
+          <button id="clear-sessions" class="delete-site">Clear All Sessions</button>
+        </div>
+        <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+          <div id="active-session-ui" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div>
+                <span id="active-session-name" style="font-weight: 700; color: var(--accent);"></span>
+                <div id="active-session-time" style="font-size: 11px; color: var(--text-dim);"></div>
+              </div>
+              <button id="stop-session" class="danger-btn">Stop Session</button>
+            </div>
+            <div style="font-size: 12px; color: var(--text-dim);">Events logged in this session: <span id="active-session-count" style="color: var(--accent); font-weight: bold;">0</span></div>
+          </div>
+
+          <div id="no-active-session-ui">
+            <div class="input-group">
+              <label style="display: block; font-size: 11px; color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Session Name</label>
+              <input type="text" id="session-name-input" 
+                style="width: 100%; background: #222; border: 1px solid var(--border); color: white; padding: 8px; border-radius: 4px; font-size: 13px; box-sizing: border-box;" 
+                placeholder="e.g. Debugging Checkout Flow">
+            </div>
+            <button id="start-session" class="danger-btn" style="color: var(--accent); border-color: rgba(0, 255, 136, 0.3); background: rgba(0, 255, 136, 0.05); margin-top: 8px; width: 100%;">Start New Session</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Past Sessions Section -->
+      <div id="sessions-list"></div>
+
       <!-- Configuration Section -->
       <section class="site-section config-section">
         <div class="site-header">

@@ -10,25 +10,33 @@ async function processQueue() {
     messageQueue = [];
 
     try {
-        const data = await chrome.storage.local.get({ history: {} });
+        const data = await chrome.storage.local.get({ history: {}, currentSession: null, sessions: {} });
         const history = data.history;
+        const currentSession = data.currentSession;
+        const sessions = data.sessions;
 
         batch.forEach(msg => {
             const { text, url, timestamp } = msg.payload;
             const hostname = new URL(url).hostname;
 
+            // Log to site history
             if (!history[hostname]) {
                 history[hostname] = [];
             }
             history[hostname].unshift({ text, timestamp });
 
-            // Limit to 100 per site
+            // Limit site history to 100 per site
             if (history[hostname].length > 100) {
                 history[hostname] = history[hostname].slice(0, 100);
             }
+
+            // Log to active session if it exists
+            if (currentSession && sessions[currentSession.id]) {
+                sessions[currentSession.id].events.unshift({ text, url, timestamp });
+            }
         });
 
-        await chrome.storage.local.set({ history });
+        await chrome.storage.local.set({ history, sessions });
     } catch (err) {
         console.error('Failed to update storage:', err);
     } finally {
